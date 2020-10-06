@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+          details {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: 0.5em 0.5em 0;
+          }
+
+          summary {
+            font-weight: bold;
+            margin: -0.5em -0.5em 0;
+            padding: 0.5em;
+            display: list-item;
+          }
+
+          details[open] {
+            padding: 0.5em;
+          }
+
+          details[open] summary {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: 0.5em;
+          }
+      </style>
+   </head>
+   
+   <body>
+      - for (let x = 1; x < 101; x++)
+          details
+            summary hi
+            | content
+   </body>
+
+    <script>
+        for (let k = 1; k < 101; k++) {
+          fetch("https://icanhazdadjoke.com/", {
+            mode: "cors",
+            headers: [["Accept", "text/plain"]]
+          })
+            .then(async (response) => {
+              let status = response.status;
+
+              if (status !== 200) {
+                console.log("There seems to be a problem.  Status Code: " + status);
+              } else {
+                const newJoke = await response.text();
+                document.querySelector(`details:nth-child(${k})`).innerHTML = `
+              <summary>Dad Joke #${k}</summary>${newJoke}`;
+              }
+            })
+            .catch((err) => {
+              console.log("Fetch Error -S " + err);
+            });
+        }
+    </script>
+</html>
